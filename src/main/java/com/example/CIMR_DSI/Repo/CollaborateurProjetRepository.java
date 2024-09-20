@@ -24,4 +24,5 @@ public interface CollaborateurProjetRepository extends JpaRepository<Collaborate
 
   @Query("SELECT DISTINCT c FROM Collaborateur c LEFT JOIN CollaborateurProjet cp ON c = cp.collaborateur AND cp.projet.id = :idProjet WHERE cp.collaborateur IS NULL")
   List<Collaborateur> findCollaborateursNotInProjet(@Param("idProjet") Long idProjet);
+
 }

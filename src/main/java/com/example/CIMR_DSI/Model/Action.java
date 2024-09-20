@@ -16,9 +16,8 @@ import java.util.Set;
 public class Action implements Serializable {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Column(nullable = false , updatable = false)
-  private Long id ;
-
+  @Column(nullable = false, updatable = false)
+  private Long id;
 
   public Projet getProjet() {
     return projet;
@@ -42,8 +41,9 @@ public class Action implements Serializable {
   private Projet projet;
   private String nomaction;
 
-  private String etat ;
-  private Long charge ;
+  private String etat;
+  private Long charge;
+
   public String getEtat() {
     return etat;
   }
@@ -52,7 +52,7 @@ public class Action implements Serializable {
     this.etat = etat;
   }
 
-  private LocalDate dateaction ;
+  private LocalDate dateaction;
 
   public Long getCharge() {
     return charge;
@@ -62,8 +62,6 @@ public class Action implements Serializable {
     this.charge = charge;
   }
 
-
-
   public LocalDate getDatelimite() {
     return datelimite;
   }
@@ -72,12 +70,13 @@ public class Action implements Serializable {
     this.datelimite = datelimite;
   }
 
-  private LocalDate datelimite ;
-  private String competence ;
-  private String Contenue ;
+  private LocalDate datelimite;
+  private String competence;
+  @Column(name = "contenue", length = 1000)
+  private String Contenue;
 
-
-  public Action(Long id, Projet projet, String nomaction, String etat, Long charge, LocalDate dateaction, LocalDate datelimite, String competence, String contenue) {
+  public Action(Long id, Projet projet, String nomaction, String etat, Long charge, LocalDate dateaction,
+      LocalDate datelimite, String competence, String contenue) {
     this.id = id;
     this.projet = projet;
     this.nomaction = nomaction;
@@ -89,7 +88,8 @@ public class Action implements Serializable {
     Contenue = contenue;
   }
 
-  public Action(){}
+  public Action() {
+  }
 
   public Long getId() {
     return id;
@@ -115,7 +115,6 @@ public class Action implements Serializable {
     this.dateaction = dateaction1;
   }
 
-
   public String getContenue() {
     return Contenue;
   }
@@ -123,6 +122,5 @@ public class Action implements Serializable {
   public void setContenue(String contenue) {
     Contenue = contenue;
   }
-
 
 }

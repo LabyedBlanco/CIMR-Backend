@@ -61,17 +61,6 @@ public class Trimestre implements Serializable {
   }
 
   private String nomtrimestre;
-  private Long AS400disponible;
-  private Long NTICdisponible;
-  private Long WINDEVdisponible;
-  private Long Analysedisponible;
-  private Long Integrationcoordination;
-  private Long WINDEVaconsomer;
-  private Long Analyseaconsomer;
-  private Long Integrationcoordinationdisponible;
-
-  private Long AS400aconsomer;
-  private Long NTICaconsomer;
   private float coefficientmaintenence;
 
   @ManyToOne(cascade = CascadeType.REMOVE)
@@ -103,86 +92,6 @@ public class Trimestre implements Serializable {
     this.nomtrimestre = nomtrimestre;
   }
 
-  public Long getAS400disponible() {
-    return AS400disponible;
-  }
-
-  public void setAS400disponible(Long AS400disponible) {
-    this.AS400disponible = AS400disponible;
-  }
-
-  public Long getNTICdisponible() {
-    return NTICdisponible;
-  }
-
-  public void setNTICdisponible(Long NTICdisponible) {
-    this.NTICdisponible = NTICdisponible;
-  }
-
-  public Long getWINDEVdisponible() {
-    return WINDEVdisponible;
-  }
-
-  public void setWINDEVdisponible(Long WINDEVdisponible) {
-    this.WINDEVdisponible = WINDEVdisponible;
-  }
-
-  public Long getAnalysedisponible() {
-    return Analysedisponible;
-  }
-
-  public void setAnalysedisponible(Long analysedisponible) {
-    Analysedisponible = analysedisponible;
-  }
-
-  public Long getIntegrationcoordination() {
-    return Integrationcoordination;
-  }
-
-  public void setIntegrationcoordination(Long integrationcoordination) {
-    Integrationcoordination = integrationcoordination;
-  }
-
-  public Long getWINDEVaconsomer() {
-    return WINDEVaconsomer;
-  }
-
-  public void setWINDEVaconsomer(Long WINDEVaconsomer) {
-    this.WINDEVaconsomer = WINDEVaconsomer;
-  }
-
-  public Long getAnalyseaconsomer() {
-    return Analyseaconsomer;
-  }
-
-  public void setAnalyseaconsomer(Long analyseaconsomer) {
-    Analyseaconsomer = analyseaconsomer;
-  }
-
-  public Long getIntegrationcoordinationdisponible() {
-    return Integrationcoordinationdisponible;
-  }
-
-  public void setIntegrationcoordinationdisponible(Long integrationcoordinationdisponible) {
-    Integrationcoordinationdisponible = integrationcoordinationdisponible;
-  }
-
-  public Long getAS400aconsomer() {
-    return AS400aconsomer;
-  }
-
-  public void setAS400aconsomer(Long AS400aconsomer) {
-    this.AS400aconsomer = AS400aconsomer;
-  }
-
-  public Long getNTICaconsomer() {
-    return NTICaconsomer;
-  }
-
-  public void setNTICaconsomer(Long NTICaconsomer) {
-    this.NTICaconsomer = NTICaconsomer;
-  }
-
   public float getCoefficientmaintenence() {
     return coefficientmaintenence;
   }
@@ -191,21 +100,9 @@ public class Trimestre implements Serializable {
     this.coefficientmaintenence = coefficientmaintenence;
   }
 
-  public Trimestre(Long id, String nomtrimestre, Long AS400disponible, Long NTICdisponible, Long WINDEVdisponible,
-      Long analysedisponible, Long integrationcoordination, Long WINDEVaconsomer, Long analyseaconsomer,
-      Long integrationcoordinationdisponible, Long AS400aconsomer, Long NTICaconsomer, float coefficientmaintenence) {
+  public Trimestre(Long id, String nomtrimestre, float coefficientmaintenence) {
     this.id = id;
     this.nomtrimestre = nomtrimestre;
-    this.AS400disponible = AS400disponible;
-    this.NTICdisponible = NTICdisponible;
-    this.WINDEVdisponible = WINDEVdisponible;
-    Analysedisponible = analysedisponible;
-    Integrationcoordination = integrationcoordination;
-    this.WINDEVaconsomer = WINDEVaconsomer;
-    Analyseaconsomer = analyseaconsomer;
-    Integrationcoordinationdisponible = integrationcoordinationdisponible;
-    this.AS400aconsomer = AS400aconsomer;
-    this.NTICaconsomer = NTICaconsomer;
     this.coefficientmaintenence = coefficientmaintenence;
   }
 

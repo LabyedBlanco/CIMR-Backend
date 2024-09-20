@@ -43,6 +43,36 @@ public class CollaborateurProjetService {
   }
 
   @Transactional
+  public CollaborateurProjet assignCollabToProjet(CollaborateurProjet collaborateurProjet) {
+    Collaborateur vfCollab = collaborateurProjet.getCollaborateur();
+    Collaborateur collaborateur = collaborateurRepository.findCollaborateurById(vfCollab.getId())
+        .orElseThrow(() -> new EntityNotFoundException("Collaborateur not found"));
+
+    Projet vfProjet = collaborateurProjet.getProjet();
+    Projet projet = projetRepository.findById(vfProjet.getId())
+        .orElseThrow(() -> new EntityNotFoundException("Projet not found"));
+
+    collaborateurProjet.setId(new CollaborateurProjetId(vfCollab.getId(), vfProjet.getId()));
+    return collaborateurProjetRepository.save(collaborateurProjet);
+  }
+
+  @Transactional
+  public void removeCollabFromProjet(CollaborateurProjet collaborateurProjet) {
+
+    Collaborateur vfCollab = collaborateurProjet.getCollaborateur();
+    Collaborateur collaborateur = collaborateurRepository.findCollaborateurById(vfCollab.getId())
+        .orElseThrow(() -> new EntityNotFoundException("Collaborateur not found"));
+
+    Projet vfProjet = collaborateurProjet.getProjet();
+    Projet projet = projetRepository.findById(vfProjet.getId())
+        .orElseThrow(() -> new EntityNotFoundException("Projet not found"));
+
+    CollaborateurProjetId id = new CollaborateurProjetId(vfCollab.getId(), vfProjet.getId());
+    collaborateurProjetRepository.deleteById(id);
+
+  }
+
+  @Transactional
   public void removeCollaborateurFromProjet(Long collaborateurId, Long projetId) {
     CollaborateurProjetId id = new CollaborateurProjetId(collaborateurId, projetId);
     collaborateurProjetRepository.deleteById(id);

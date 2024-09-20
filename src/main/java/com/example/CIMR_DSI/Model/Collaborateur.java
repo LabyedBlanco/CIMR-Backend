@@ -10,22 +10,32 @@ import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
+import java.util.Collection;
+
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 @Entity
-public class Collaborateur implements Serializable {
+public class Collaborateur implements Serializable, UserDetails {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(nullable = false, updatable = false)
   private Long id;
 
+  @Override
+  public boolean isEnabled() {
+    return enabled;
+  }
+
   private Long droitdecongee;
   private String compentence;
   private String imageurl;
   private String Role;
-  private String password;
 
-  @OneToMany(mappedBy = "collaborateur", cascade = CascadeType.ALL)
+  @OneToMany(mappedBy = "collaborateur", cascade = CascadeType.ALL, orphanRemoval = true)
   @JsonIgnore
   private Set<CollaborateurProjet> collabprojet;
 
@@ -56,17 +66,7 @@ public class Collaborateur implements Serializable {
   private String nom;
   private String prenom;
   private String about;
-  private String email;
 
-  public Long getChargedisponible() {
-    return chargedisponible;
-  }
-
-  public void setChargedisponible(Long chargedisponible) {
-    this.chargedisponible = chargedisponible;
-  }
-
-  private Long chargedisponible;
   private LocalDate creele;
 
   public LocalDate getCreele() {
@@ -74,7 +74,7 @@ public class Collaborateur implements Serializable {
   }
 
   public Collaborateur(Long id, Long droitdecongee, String compentence, String imageurl, String role, String password,
-      String nom, String prenom, String about, String email, Long chargedisponible, LocalDate creele) {
+      String nom, String prenom, String about, String email, LocalDate creele) {
     this.id = id;
 
     this.droitdecongee = droitdecongee;
@@ -86,13 +86,48 @@ public class Collaborateur implements Serializable {
     this.prenom = prenom;
     this.about = about;
     this.email = email;
-    this.chargedisponible = chargedisponible;
+
     this.creele = creele;
   }
 
-  public void setCreele(LocalDate creele) {
-    this.creele = creele;
+  @Column(name = "verification_code", length = 64)
+  private String verificationCode;
+
+  private boolean enabled;
+
+  public String getVerificationCode() {
+    return verificationCode;
   }
+
+  public void setVerificationCode(String verificationCode) {
+    this.verificationCode = verificationCode;
+  }
+
+  public void setEnabled(boolean enabled) {
+    this.enabled = enabled;
+  }
+
+  public Date getCreatedAt() {
+    return createdAt;
+  }
+
+  public void setCreatedAt(Date createdAt) {
+    this.createdAt = createdAt;
+  }
+
+  public Date getUpdatedAt() {
+    return updatedAt;
+  }
+
+  public void setUpdatedAt(Date updatedAt) {
+    this.updatedAt = updatedAt;
+  }
+
+  @Column(unique = true, length = 100, nullable = false)
+  private String email;
+
+  @Column(nullable = false)
+  private String password;
 
   public String getEmail() {
     return email;
@@ -100,6 +135,51 @@ public class Collaborateur implements Serializable {
 
   public void setEmail(String email) {
     this.email = email;
+  }
+
+  public void setPassword(String password) {
+    this.password = password;
+  }
+
+  @CreationTimestamp
+  @Column(updatable = false, name = "created_at")
+  private Date createdAt;
+
+  @UpdateTimestamp
+  @Column(name = "updated_at")
+  private Date updatedAt;
+
+  public String getPassword() {
+    return password;
+  }
+
+  @Override
+  public String getUsername() {
+    return email;
+  }
+
+  @Override
+  public Collection<? extends GrantedAuthority> getAuthorities() {
+    return new java.util.ArrayList<>();
+  }
+
+  @Override
+  public boolean isAccountNonExpired() {
+    return true;
+  }
+
+  @Override
+  public boolean isAccountNonLocked() {
+    return true;
+  }
+
+  @Override
+  public boolean isCredentialsNonExpired() {
+    return true;
+  }
+
+  public void setCreele(LocalDate creele) {
+    this.creele = creele;
   }
 
   public Set<CollaborateurProjet> getCollabprojet() {
@@ -159,14 +239,6 @@ public class Collaborateur implements Serializable {
 
   public void setRole(String role) {
     Role = role;
-  }
-
-  public String getPassword() {
-    return password;
-  }
-
-  public void setPassword(String password) {
-    this.password = password;
   }
 
   public Collaborateur() {

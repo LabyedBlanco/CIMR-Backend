@@ -38,6 +38,13 @@ public class CollaborateurProjetResouce {
     return ResponseEntity.ok(result);
   }
 
+  @PostMapping("/assign")
+  public ResponseEntity<CollaborateurProjet> assignCollabToProjet(
+      @RequestBody CollaborateurProjet collaborateurProjet) {
+    CollaborateurProjet result = collaborateurProjetService.assignCollabToProjet(collaborateurProjet);
+    return new ResponseEntity<>(collaborateurProjet, HttpStatus.CREATED);
+  }
+
   @DeleteMapping("/remove/{idProjet}/{idCollaborateur}")
   public ResponseEntity<Void> removeCollaborateurFromProjet(
       @PathVariable("idCollaborateur") Long collaborateurId,

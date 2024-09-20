@@ -11,13 +11,13 @@ public class CollaborateurProjet {
   @EmbeddedId
   private CollaborateurProjetId id;
 
-  @ManyToOne
+  @ManyToOne()
   @MapsId("collaborateurId")
   @JoinColumn(name = "collaborateur_id")
   private Collaborateur collaborateur;
 
   @JsonBackReference
-  @ManyToOne
+  @ManyToOne()
   @MapsId("projetId")
   @JoinColumn(name = "projet_id")
   private Projet projet;

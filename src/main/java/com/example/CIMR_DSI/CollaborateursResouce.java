@@ -3,8 +3,12 @@ package com.example.CIMR_DSI;
 import com.example.CIMR_DSI.Model.Collaborateur;
 import com.example.CIMR_DSI.Repo.CollaborateurRepository;
 import com.example.CIMR_DSI.Service.CollaborateurService;
+
+import org.hibernate.mapping.Set;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -58,4 +62,14 @@ public class CollaborateursResouce {
     collaborateurService.deleteCollaborateurbyid(id);
     return new ResponseEntity<>(HttpStatus.OK);
   }
+
+  @GetMapping("/me")
+  public ResponseEntity<Collaborateur> authenticatedCollaborateur() {
+    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+    Collaborateur currentCollaborateur = (Collaborateur) authentication.getPrincipal();
+
+    return ResponseEntity.ok(currentCollaborateur);
+  }
+
 }

@@ -38,7 +38,7 @@ public class Planification implements Serializable {
   @Column(unique = true)
   private LocalDate Dateplanification;
 
-  @OneToMany(mappedBy = "planification", cascade = CascadeType.ALL)
+  @OneToMany(mappedBy = "planification", cascade = CascadeType.REMOVE)
   @JsonIgnoreProperties("planification")
   private Set<Trimestre> trimestre;
 

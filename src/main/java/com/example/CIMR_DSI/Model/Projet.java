@@ -33,7 +33,7 @@ public class Projet implements Serializable {
   }
 
   @JsonManagedReference
-  @OneToMany(mappedBy = "projet")
+  @OneToMany(mappedBy = "projet", cascade = CascadeType.ALL)
   @JsonIgnore
   private Set<CollaborateurProjet> projetcollab;
 
@@ -62,9 +62,6 @@ public class Projet implements Serializable {
   private Long chargeestimee;
   private Long integrationcoordination;
   private Long Controlequalite;
-  private Long DevAS400;
-  private Long DevWINDEV;
-  private Long DevNTIC;
   private Long Infra;
   private Long Analyse;
   private String datelimie;
@@ -121,7 +118,7 @@ public class Projet implements Serializable {
   public Projet(Long id, Set<CollaborateurProjet> said, Departement departement, Planification planification,
       Set<Action> actions, String titre, long chargeNTIC, long chargeWINDEV, long chargeAS400,
       boolean deleted, boolean aretenir, boolean chiffrer, Long chargeestimee, Long integrationcoordination,
-      Long controlequalite, Long devAS400, Long devWINDEV, Long devNTIC, Long infra, Long analyse, String datelimie,
+      Long controlequalite, Long infra, Long analyse, String datelimie,
       String datedebut, String remarque, String etatdavancement) {
     this.id = id;
     this.projetcollab = said;
@@ -137,9 +134,6 @@ public class Projet implements Serializable {
     this.chargeestimee = chargeestimee;
     this.integrationcoordination = integrationcoordination;
     Controlequalite = controlequalite;
-    DevAS400 = devAS400;
-    DevWINDEV = devWINDEV;
-    DevNTIC = devNTIC;
     Infra = infra;
     Analyse = analyse;
     this.datelimie = datelimie;
@@ -234,30 +228,6 @@ public class Projet implements Serializable {
 
   public void setControlequalite(Long controlequalite) {
     Controlequalite = controlequalite;
-  }
-
-  public Long getDevAS400() {
-    return DevAS400;
-  }
-
-  public void setDevAS400(Long devAS400) {
-    DevAS400 = devAS400;
-  }
-
-  public Long getDevWINDEV() {
-    return DevWINDEV;
-  }
-
-  public void setDevWINDEV(Long devWINDEV) {
-    DevWINDEV = devWINDEV;
-  }
-
-  public Long getDevNTIC() {
-    return DevNTIC;
-  }
-
-  public void setDevNTIC(Long devNTIC) {
-    DevNTIC = devNTIC;
   }
 
   public Long getInfra() {
