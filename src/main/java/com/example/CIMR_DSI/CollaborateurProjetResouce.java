@@ -65,6 +65,13 @@ public class CollaborateurProjetResouce {
     return new ResponseEntity<>(projets, HttpStatus.OK);
   }
 
+  @GetMapping("/Collaborateur/{idCollab}/Trimestre/{idTrim}")
+  public ResponseEntity<Set<Projet>> findAllProjetByTrimestreCollb(@PathVariable("idCollab") Long idCollab,
+      @PathVariable("idTrim") Long idTrim) {
+    Set<Projet> projets = collaborateurProjetService.getProjetfotCollbInTrimestre(idCollab, idTrim);
+    return new ResponseEntity<>(projets, HttpStatus.OK);
+  }
+
   @GetMapping("/Collaborateur/{id}/Count/Projet")
   public ResponseEntity<Long> CountAllProjets(@PathVariable("id") Long id) {
     Long projets = collaborateurProjetService.CountForCollaborateur(id);

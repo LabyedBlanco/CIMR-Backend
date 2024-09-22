@@ -25,6 +25,7 @@ public class CollaborateurService {
   }
 
   public Collaborateur addCollaborateur(Collaborateur collaborateur) {
+
     return collaborateurRepository.save(collaborateur);
   }
 

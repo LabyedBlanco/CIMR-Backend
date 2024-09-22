@@ -3,6 +3,9 @@ package com.example.CIMR_DSI.Repo;
 import com.example.CIMR_DSI.Model.Trimestre;
 import com.example.CIMR_DSI.Model.Projet;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+
 import java.util.Set;
 import java.util.Optional;
 

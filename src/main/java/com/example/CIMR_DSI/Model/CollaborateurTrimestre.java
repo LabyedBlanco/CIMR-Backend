@@ -20,13 +20,58 @@ public class CollaborateurTrimestre {
   @JoinColumn(name = "trimestre_id")
   private Trimestre trimestre;
 
-  private Long DevNTIC;
-  private Long DevAS400;
-  private Long WINDEV;
-  private Long Integrationcoordination;
-  private Long Analyse;
-  private Long ControleQualite;
-  private Long Infra;
+  private int Integrationcoordination;
+  private int Analyse;
+
+  public int getAnalyse() {
+    return Analyse;
+  }
+
+  public void setAnalyse(int analyse) {
+    Analyse = analyse;
+  }
+
+  private int ControleQualite;
+  private int chargedisponible;
+  private int totalNetcongee;
+  private int maintenence;
+  private int chargecompetence;
+
+  public int getSum() {
+    return (int) (this.ControleQualite + this.Analyse + this.maintenence + this.Integrationcoordination);
+  }
+
+  public int getChargecompetence() {
+    return chargecompetence;
+  }
+
+  public void setChargecompetence(int chargecompetence) {
+    this.chargecompetence = chargecompetence;
+  }
+
+  public int getMaintenence() {
+    return maintenence;
+  }
+
+  public void setMaintenence(int maintenence) {
+    this.maintenence = maintenence;
+  }
+
+  public int getChargedisponible() {
+    return chargedisponible;
+  }
+
+  public void setChargedisponible(int chargedisponible) {
+    this.chargedisponible = chargedisponible;
+  }
+
+  public int getTotalNetcongee() {
+    return totalNetcongee;
+  }
+
+  public void setTotalNetcongee(int totalNetcongee) {
+    this.totalNetcongee = totalNetcongee;
+  }
 
   public CollaborateurTrimestreId getId() {
     return id;
@@ -52,59 +97,20 @@ public class CollaborateurTrimestre {
     this.trimestre = trimestre;
   }
 
-  public Long getDevNTIC() {
-    return DevNTIC;
-  }
-
-  public void setDevNTIC(Long devNTIC) {
-    DevNTIC = devNTIC;
-  }
-
-  public Long getDevAS400() {
-    return DevAS400;
-  }
-
-  public void setDevAS400(Long devAS400) {
-    DevAS400 = devAS400;
-  }
-
-  public Long getWINDEV() {
-    return WINDEV;
-  }
-
-  public void setWINDEV(Long wINDEV) {
-    WINDEV = wINDEV;
-  }
-
-  public Long getIntegrationcoordination() {
+  public int getIntegrationcoordination() {
     return Integrationcoordination;
   }
 
-  public void setIntegrationcoordination(Long integrationcoordination) {
+  public void setIntegrationcoordination(int integrationcoordination) {
     Integrationcoordination = integrationcoordination;
   }
 
-  public Long getAnalyse() {
-    return Analyse;
-  }
-
-  public void setAnalyse(Long analyse) {
-    Analyse = analyse;
-  }
-
-  public Long getControleQualite() {
+  public int getControleQualite() {
     return ControleQualite;
   }
 
-  public void setControleQualite(Long controleQualite) {
+  public void setControleQualite(int controleQualite) {
     ControleQualite = controleQualite;
   }
 
-  public Long getInfra() {
-    return Infra;
-  }
-
-  public void setInfra(Long infra) {
-    Infra = infra;
-  }
 }

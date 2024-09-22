@@ -44,6 +44,7 @@ public class AuthenticationController {
         LoginResponse loginResponse = new LoginResponse();
         loginResponse.setToken(jwtToken);
         loginResponse.setExpiresIn(jwtService.getExpirationTime());
+        loginResponse.setId(authenticatedCollaborateur.getId());
         if (authenticatedCollaborateur.isEnabled()) {
             return ResponseEntity.ok(loginResponse);
         } else {

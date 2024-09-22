@@ -28,4 +28,5 @@ public interface CollaborateurRepository
 
   @Query("SELECT u FROM Collaborateur u WHERE u.verificationCode = ?1")
   public Collaborateur findByVerificationCode(String code);
+
 }

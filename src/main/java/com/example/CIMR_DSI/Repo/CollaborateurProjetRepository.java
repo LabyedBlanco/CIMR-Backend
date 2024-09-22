@@ -19,6 +19,10 @@ public interface CollaborateurProjetRepository extends JpaRepository<Collaborate
   @Query("SELECT cp.projet FROM CollaborateurProjet cp WHERE cp.collaborateur.id = :id")
   Set<Projet> findAllProjetByCollaborateurId(@Param("id") Long CollaborateurId);
 
+  @Query("SELECT cp.projet FROM CollaborateurProjet cp WHERE cp.collaborateur.id = :idCollab AND cp.projet.trimestre.id = :idTrimestre")
+  Set<Projet> findAllProjetByCollaborateurandTrimestreId(@Param("idCollab") Long CollaborateurId,
+      @Param("idTrimestre") Long TrimestreId);
+
   @Query("SELECT COUNT(cp.projet) FROM CollaborateurProjet cp WHERE cp.collaborateur.id = :id")
   Long CountAllProjetByCollaborateurId(@Param("id") Long CollaborateurId);
 

@@ -4,6 +4,9 @@ import jakarta.persistence.*;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Set;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 public class Competence {
@@ -14,6 +17,9 @@ public class Competence {
 
     @Column(nullable = false)
     private String titrecompetence;
+
+    @OneToMany(mappedBy = "competence", cascade = CascadeType.ALL)
+    private Set<Collaborateur> collaborateurs;
 
     public Competence() {
     }

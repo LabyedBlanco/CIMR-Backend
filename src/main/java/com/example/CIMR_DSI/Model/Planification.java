@@ -42,6 +42,13 @@ public class Planification implements Serializable {
   @JsonIgnoreProperties("planification")
   private Set<Trimestre> trimestre;
 
+  public int getTrimestreCount() {
+    if (this.trimestre == null) {
+      return 0;
+    }
+    return this.trimestre.size();
+  }
+
   public Set<Trimestre> getTrimestre() {
     return trimestre;
   }

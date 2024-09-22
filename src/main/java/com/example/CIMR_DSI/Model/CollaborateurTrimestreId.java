@@ -1,6 +1,5 @@
 package com.example.CIMR_DSI.Model;
 
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 
@@ -12,4 +11,13 @@ public class CollaborateurTrimestreId {
 
   @Column(name = "trimestre_id")
   private Long trimestreId;
+
+  public CollaborateurTrimestreId(Long collaborateurId, Long TrimestreId) {
+    this.collaborateurId = collaborateurId;
+    this.trimestreId = TrimestreId;
+  }
+
+  public CollaborateurTrimestreId() {
+
+  }
 }

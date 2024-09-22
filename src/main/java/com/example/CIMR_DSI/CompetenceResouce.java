@@ -16,6 +16,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/Competence")
+@CrossOrigin(origins = "http://localhost:4200")
 public class CompetenceResouce {
 
     @Autowired

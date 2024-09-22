@@ -7,6 +7,8 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
 
+import org.springframework.cglib.core.Local;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -22,6 +24,57 @@ public class Trimestre implements Serializable {
   @JsonIgnoreProperties("trimestre")
   private Set<Projet> projetList;
 
+  @OneToMany(fetch = FetchType.LAZY, mappedBy = "trimestre", cascade = CascadeType.REMOVE)
+  private Set<CollaborateurTrimestre> collaborateurs;
+
+  private int totaldisponibledejour;
+  private float coefficientmaintence;
+  private int joursferiee;
+  private LocalDate DateDebut;
+  private LocalDate DateFin;
+
+  public LocalDate getDateDebut() {
+    return DateDebut;
+  }
+
+  public void setDateDebut(LocalDate dateDebut) {
+    DateDebut = dateDebut;
+  }
+
+  public LocalDate getDateFin() {
+    return DateFin;
+  }
+
+  public void setDateFin(LocalDate dateFin) {
+    DateFin = dateFin;
+  }
+
+  public int getTotaldisponibledejour() {
+    return totaldisponibledejour;
+  }
+
+  public void setTotaldisponibledejour(int totaldisponibledejour) {
+    this.totaldisponibledejour = totaldisponibledejour;
+  }
+
+  public float getCoefficientmaintence() {
+    return coefficientmaintence;
+  }
+
+  public void setCoefficientmaintence(float coefficientmaintence) {
+    this.coefficientmaintence = coefficientmaintence;
+  }
+
+  public int getJoursferiee() {
+    return joursferiee;
+  }
+
+  public void setJoursferiee(int joursferiee) {
+    this.joursferiee = joursferiee;
+  }
+
+  private int ordre;
+
   public Set<Projet> getProjetList() {
     return projetList;
   }
@@ -30,16 +83,7 @@ public class Trimestre implements Serializable {
     this.projetList = projetList;
   }
 
-  private Long TrimestreNumber;
   private LocalDateTime creationDate;
-
-  public Long getTrimestreNumber() {
-    return TrimestreNumber;
-  }
-
-  public void setTrimestreNumber(Long trimestreNumber) {
-    TrimestreNumber = trimestreNumber;
-  }
 
   public LocalDateTime getCreationDate() {
     return creationDate;
@@ -49,19 +93,7 @@ public class Trimestre implements Serializable {
     this.creationDate = creationdate;
   }
 
-  public Long getOrder() {
-    return TrimestreNumber;
-  }
-
-  public void setOrder(Long order) {
-    if (order <= 3) {
-      this.TrimestreNumber = order;
-    }
-
-  }
-
   private String nomtrimestre;
-  private float coefficientmaintenence;
 
   @ManyToOne(cascade = CascadeType.REMOVE)
   @JoinColumn(name = "planification_id")
@@ -92,21 +124,20 @@ public class Trimestre implements Serializable {
     this.nomtrimestre = nomtrimestre;
   }
 
-  public float getCoefficientmaintenence() {
-    return coefficientmaintenence;
-  }
-
-  public void setCoefficientmaintenence(float coefficientmaintenence) {
-    this.coefficientmaintenence = coefficientmaintenence;
-  }
-
   public Trimestre(Long id, String nomtrimestre, float coefficientmaintenence) {
     this.id = id;
     this.nomtrimestre = nomtrimestre;
-    this.coefficientmaintenence = coefficientmaintenence;
   }
 
   public Trimestre() {
 
+  }
+
+  public int getOrdre() {
+    return ordre;
+  }
+
+  public void setOrdre(int ordre) {
+    this.ordre = ordre;
   }
 }

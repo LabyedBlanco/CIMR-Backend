@@ -30,8 +30,28 @@ public class Collaborateur implements Serializable, UserDetails {
     return enabled;
   }
 
-  private Long droitdecongee;
-  private String compentence;
+  @ManyToOne
+  @JoinColumn(name = "competence_id")
+  private Competence competence;
+
+  private int droitdecongee;
+
+  public Competence getCompetence() {
+    return competence;
+  }
+
+  public void setCompetence(Competence competence) {
+    this.competence = competence;
+  }
+
+  public int getDroitdecongee() {
+    return droitdecongee;
+  }
+
+  public void setDroitdecongee(int droitdecongee) {
+    this.droitdecongee = droitdecongee;
+  }
+
   private String imageurl;
   private String Role;
 
@@ -71,23 +91,6 @@ public class Collaborateur implements Serializable, UserDetails {
 
   public LocalDate getCreele() {
     return creele;
-  }
-
-  public Collaborateur(Long id, Long droitdecongee, String compentence, String imageurl, String role, String password,
-      String nom, String prenom, String about, String email, LocalDate creele) {
-    this.id = id;
-
-    this.droitdecongee = droitdecongee;
-    this.compentence = compentence;
-    this.imageurl = imageurl;
-    Role = role;
-    this.password = password;
-    this.nom = nom;
-    this.prenom = prenom;
-    this.about = about;
-    this.email = email;
-
-    this.creele = creele;
   }
 
   @Column(name = "verification_code", length = 64)
@@ -207,22 +210,6 @@ public class Collaborateur implements Serializable, UserDetails {
 
   public void setId(Long id) {
     this.id = id;
-  }
-
-  public Long getDroitdecongee() {
-    return droitdecongee;
-  }
-
-  public void setDroitdecongee(Long droitdecongee) {
-    this.droitdecongee = droitdecongee;
-  }
-
-  public String getCompentence() {
-    return compentence;
-  }
-
-  public void setCompentence(String compentence) {
-    this.compentence = compentence;
   }
 
   public String getImageurl() {

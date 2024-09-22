@@ -39,6 +39,7 @@ public class Action implements Serializable {
   @JoinColumn(name = "projet_id")
   @JsonIgnoreProperties("actions")
   private Projet projet;
+
   private String nomaction;
 
   private String etat;

@@ -90,6 +90,10 @@ public class CollaborateurProjetService {
     return collaborateurProjetRepository.findAllCollaborateurByProjetId(projetId);
   }
 
+  public Set<Projet> getProjetfotCollbInTrimestre(Long CollabId, Long TrimestreId) {
+    return collaborateurProjetRepository.findAllProjetByCollaborateurandTrimestreId(CollabId, TrimestreId);
+  }
+
   public List<Collaborateur> getCollaborateurNotInProjet(Long projetId) {
     return collaborateurProjetRepository.findCollaborateursNotInProjet(projetId);
   }
