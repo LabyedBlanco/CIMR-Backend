@@ -7,11 +7,14 @@ import com.example.CIMR_DSI.Model.Projet;
 import com.example.CIMR_DSI.Repo.CollaborateurProjetRepository;
 import com.example.CIMR_DSI.Repo.CollaborateurRepository;
 import com.example.CIMR_DSI.Repo.ProjetRepository;
+
+import jakarta.mail.MessagingException;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 import java.util.Set;
 
@@ -22,6 +25,9 @@ public class CollaborateurProjetService {
 
   @Autowired
   private CollaborateurRepository collaborateurRepository;
+
+  @Autowired
+  private AuthenticationService authenticationService;
 
   @Autowired
   private ProjetRepository projetRepository;
@@ -53,6 +59,16 @@ public class CollaborateurProjetService {
         .orElseThrow(() -> new EntityNotFoundException("Projet not found"));
 
     collaborateurProjet.setId(new CollaborateurProjetId(vfCollab.getId(), vfProjet.getId()));
+
+    try {
+      authenticationService.sendAssigningEmail(vfCollab, vfProjet);
+    } catch (UnsupportedEncodingException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    } catch (MessagingException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
     return collaborateurProjetRepository.save(collaborateurProjet);
   }
 

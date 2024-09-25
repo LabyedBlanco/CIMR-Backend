@@ -27,14 +27,6 @@ public class Action implements Serializable {
     this.projet = projet;
   }
 
-  public String getCompetence() {
-    return competence;
-  }
-
-  public void setCompetence(String competence) {
-    this.competence = competence;
-  }
-
   @ManyToOne
   @JoinColumn(name = "projet_id")
   @JsonIgnoreProperties("actions")
@@ -72,12 +64,16 @@ public class Action implements Serializable {
   }
 
   private LocalDate datelimite;
-  private String competence;
+
+  @ManyToOne
+
+  private Competence competence;
+
   @Column(name = "contenue", length = 1000)
   private String Contenue;
 
   public Action(Long id, Projet projet, String nomaction, String etat, Long charge, LocalDate dateaction,
-      LocalDate datelimite, String competence, String contenue) {
+      LocalDate datelimite, String contenue) {
     this.id = id;
     this.projet = projet;
     this.nomaction = nomaction;
@@ -85,7 +81,7 @@ public class Action implements Serializable {
     this.charge = charge;
     this.dateaction = dateaction;
     this.datelimite = datelimite;
-    this.competence = competence;
+
     Contenue = contenue;
   }
 

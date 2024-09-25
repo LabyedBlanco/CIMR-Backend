@@ -1,5 +1,6 @@
 package com.example.CIMR_DSI.Repo;
 
+import com.example.CIMR_DSI.Model.Action;
 import com.example.CIMR_DSI.Model.Collaborateur;
 import com.example.CIMR_DSI.Model.CollaborateurProjet;
 
@@ -7,6 +8,7 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
 
 import java.util.Optional;
 import java.util.Set;
@@ -28,5 +30,8 @@ public interface CollaborateurRepository
 
   @Query("SELECT u FROM Collaborateur u WHERE u.verificationCode = ?1")
   public Collaborateur findByVerificationCode(String code);
+
+  @Query("SELECT u FROM Collaborateur u WHERE u.id = :id")
+  Collaborateur findByIdNotOptional(@Param("id") Long id);
 
 }

@@ -27,6 +27,14 @@ public class CollaborateurTrimestreService {
     @Autowired
     private TrimestreRepository TrimestreRepository;
 
+    public Set<CollaborateurTrimestre> findAll(Long TrimestreId) {
+        return collaborateurTrimestreRepository.findAllByTrimestreId(TrimestreId);
+    }
+
+    public CollaborateurTrimestre getSUMALL(Long id) {
+        return collaborateurTrimestreRepository.getSumOfFields(id);
+    }
+
     @Transactional
     public CollaborateurTrimestre assignCollaborateurToTrimestre(Long collaborateurId, Long TrimestreId,
             CollaborateurTrimestre CollaborateurTrimestre) {

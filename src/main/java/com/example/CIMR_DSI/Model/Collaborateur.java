@@ -193,16 +193,9 @@ public class Collaborateur implements Serializable, UserDetails {
     collabprojet = collaborateurprojets;
   }
 
-  public Set<CollaborateurTrimestre> getTrimsestres() {
-    return trimsestres;
-  }
-
-  public void setTrimsestres(Set<CollaborateurTrimestre> trimsestres) {
-    this.trimsestres = trimsestres;
-  }
-
-  @OneToMany(mappedBy = "collaborateur")
-  private Set<CollaborateurTrimestre> trimsestres;
+  @OneToMany(fetch = FetchType.LAZY, mappedBy = "collaborateur", cascade = CascadeType.REMOVE)
+  @JsonIgnoreProperties("collaborateur")
+  private Set<CollaborateurTrimestre> trimestre;
 
   public Long getId() {
     return id;
@@ -230,5 +223,13 @@ public class Collaborateur implements Serializable, UserDetails {
 
   public Collaborateur() {
 
+  }
+
+  public Set<CollaborateurTrimestre> getTrimestre() {
+    return trimestre;
+  }
+
+  public void setTrimestre(Set<CollaborateurTrimestre> trimestre) {
+    this.trimestre = trimestre;
   }
 }

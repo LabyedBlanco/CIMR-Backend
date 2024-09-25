@@ -35,22 +35,15 @@ public class Projet implements Serializable {
   @JsonManagedReference
   @OneToMany(mappedBy = "projet", cascade = CascadeType.ALL)
   @JsonIgnore
-  private Set<CollaborateurProjet> projetcollab;
-
-  public Set<CollaborateurProjet> getProjetcollab() {
-    return projetcollab;
-  }
-
-  public void setProjetcollab(Set<CollaborateurProjet> projetCollaborateurs) {
-    projetcollab = projetCollaborateurs;
-  }
+  private Set<CollaborateurProjet> collaborateur;
 
   @ManyToOne(cascade = CascadeType.MERGE)
   @JoinColumn(name = "departement_id")
   private Departement departement;
 
   @OneToMany(mappedBy = "projet", cascade = CascadeType.ALL)
-  private Set<Action> actions;
+  @JsonIgnoreProperties("projet")
+  private Set<Action> action;
 
   private String titre;
   private long chargeNTIC;
@@ -87,16 +80,16 @@ public class Projet implements Serializable {
 
   private String etatdavancement;
 
-  public Set<CollaborateurProjet> getCollaborateurs() {
-    return projetcollab;
-  }
-
-  public void setCollaborateurs(Set<CollaborateurProjet> said) {
-    this.projetcollab = said;
-  }
-
   public void setChargeestimee(Long chargeestimee) {
     this.chargeestimee = chargeestimee;
+  }
+
+  public Set<CollaborateurProjet> getCollaborateur() {
+    return collaborateur;
+  }
+
+  public void setCollaborateur(Set<CollaborateurProjet> collaborateur) {
+    this.collaborateur = collaborateur;
   }
 
   public Departement getDepartement() {
@@ -107,23 +100,15 @@ public class Projet implements Serializable {
     this.departement = departement;
   }
 
-  public Set<Action> getActions() {
-    return actions;
-  }
-
-  public void setActions(Set<Action> actions) {
-    this.actions = actions;
-  }
-
   public Projet(Long id, Set<CollaborateurProjet> said, Departement departement, Planification planification,
       Set<Action> actions, String titre, long chargeNTIC, long chargeWINDEV, long chargeAS400,
       boolean deleted, boolean aretenir, boolean chiffrer, Long chargeestimee, Long integrationcoordination,
       Long controlequalite, Long infra, Long analyse, String datelimie,
       String datedebut, String remarque, String etatdavancement) {
     this.id = id;
-    this.projetcollab = said;
+
     this.departement = departement;
-    this.actions = actions;
+    this.action = action;
     this.titre = titre;
     this.chargeNTIC = chargeNTIC;
     this.chargeWINDEV = chargeWINDEV;
@@ -268,6 +253,14 @@ public class Projet implements Serializable {
 
   public void setRemarque(String remarque) {
     this.remarque = remarque;
+  }
+
+  public Set<Action> getAction() {
+    return action;
+  }
+
+  public void setAction(Set<Action> action) {
+    this.action = action;
   }
 
 }

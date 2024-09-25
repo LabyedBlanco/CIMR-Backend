@@ -20,6 +20,7 @@ public class CollaborateurProjet {
   @ManyToOne()
   @MapsId("projetId")
   @JoinColumn(name = "projet_id")
+  @JsonIgnoreProperties("action")
   private Projet projet;
 
   private Long DevAS400;

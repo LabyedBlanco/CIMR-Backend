@@ -1,6 +1,9 @@
 package com.example.CIMR_DSI.Model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.*;
 
 @Entity
@@ -9,15 +12,16 @@ public class CollaborateurTrimestre {
   @EmbeddedId
   private CollaborateurTrimestreId id;
 
-  @ManyToOne
+  @ManyToOne(cascade = CascadeType.REMOVE)
   @MapsId("collaborateurId")
   @JoinColumn(name = "collaborateur_id")
-  @JsonBackReference
+  @JsonIgnoreProperties("trimestre")
   private Collaborateur collaborateur;
 
   @ManyToOne
   @MapsId("trimestreId")
   @JoinColumn(name = "trimestre_id")
+  @JsonIgnoreProperties("projetList")
   private Trimestre trimestre;
 
   private int Integrationcoordination;

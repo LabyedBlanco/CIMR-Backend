@@ -19,6 +19,9 @@ public class Competence {
     private String titrecompetence;
 
     @OneToMany(mappedBy = "competence", cascade = CascadeType.ALL)
+    private Set<Action> actions;
+
+    @OneToMany(mappedBy = "competence", cascade = CascadeType.ALL)
     private Set<Collaborateur> collaborateurs;
 
     public Competence() {

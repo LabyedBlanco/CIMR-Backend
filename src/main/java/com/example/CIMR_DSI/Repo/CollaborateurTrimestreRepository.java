@@ -14,4 +14,20 @@ import java.util.Set;
 public interface CollaborateurTrimestreRepository
                 extends JpaRepository<CollaborateurTrimestre, CollaborateurTrimestreId> {
 
+        @Query("SELECT cp FROM CollaborateurTrimestre cp WHERE cp.trimestre.id = :id")
+        Set<CollaborateurTrimestre> findAllByTrimestreId(@Param("id") Long TrimestreId);
+
+        @Query(nativeQuery = true, value = "SELECT " +
+                        "    SUM(ct.analyse) as analyse, " +
+                        "    SUM(ct.chargecompetence) as chargecompetence, " +
+                        "    SUM(ct.chargedisponible) as chargedisponible, " +
+                        "    SUM(ct.controle_qualite) as controleQualite, " +
+                        "    SUM(ct.integrationcoordination as integrationcoordination, " +
+                        "    SUM(ct.maintenence) as maintenence, " +
+                        "    SUM(ct.total_netcongee) as totalNetcongee " +
+                        "FROM collaborateur_trimestre ct " +
+                        "JOIN trimestre t ON ct.trimestre_id = t.id " +
+                        "WHERE t.id = :trimestreId")
+        CollaborateurTrimestre getSumOfFields(@Param("trimestreId") Long trimestreId);
+
 }

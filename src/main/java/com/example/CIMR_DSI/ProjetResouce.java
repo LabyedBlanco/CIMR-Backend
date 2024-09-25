@@ -48,6 +48,13 @@ public class ProjetResouce {
     return new ResponseEntity<>(updateprojet, HttpStatus.OK);
   }
 
+  @PutMapping("/Chiffrer/{id}")
+  public ResponseEntity<Projet> ChiffrerProjet(@PathVariable("id") Long projet) {
+
+    Projet updateprojet = projetService.chiffrerProjet(projet);
+    return new ResponseEntity<>(updateprojet, HttpStatus.OK);
+  }
+
   @PutMapping("/remarque")
   public ResponseEntity<Projet> Onremarque(@RequestBody Projet projet) {
 

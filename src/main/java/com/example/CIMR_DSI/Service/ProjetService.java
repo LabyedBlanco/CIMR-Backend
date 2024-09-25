@@ -48,6 +48,17 @@ public class ProjetService {
     }
   }
 
+  public Projet chiffrerProjet(Long projet) {
+    Projet ProjetToSave = projetRepository.findByIdNotOptional(projet);
+
+    if (ProjetToSave == null) {
+      return null;
+    } else {
+      ProjetToSave.setChiffrer(true);
+      return projetRepository.save(ProjetToSave);
+    }
+  }
+
   public Projet ajouterRemarque(Projet projet) {
     Projet ProjetToSave = projetRepository.findByIdNotOptional(projet.getId());
     if (ProjetToSave == null) {

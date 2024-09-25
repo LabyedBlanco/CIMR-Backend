@@ -37,7 +37,9 @@ public class ActionService {
     return actionRepository.save(action);
   }
 
+  @Transactional
   public Set<Action> findActionsByProjetId(Long id) {
+    actionRepository.CheckdateLimit();
     return actionRepository.findAllByProjetIdOrderByDatelimite(id);
   }
 
