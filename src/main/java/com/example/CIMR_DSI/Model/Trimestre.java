@@ -20,11 +20,11 @@ public class Trimestre implements Serializable {
   @Column(updatable = false, nullable = false)
   private Long id;
 
-  @OneToMany(fetch = FetchType.LAZY, mappedBy = "trimestre", cascade = CascadeType.REMOVE)
+  @OneToMany(fetch = FetchType.LAZY, mappedBy = "trimestre", cascade = CascadeType.ALL, orphanRemoval = true)
   @JsonIgnoreProperties("trimestre")
   private Set<Projet> projetList;
 
-  @OneToMany(fetch = FetchType.LAZY, mappedBy = "trimestre", cascade = CascadeType.REMOVE)
+  @OneToMany(fetch = FetchType.LAZY, mappedBy = "trimestre", cascade = CascadeType.ALL, orphanRemoval = true)
   private Set<CollaborateurTrimestre> collaborateurs;
 
   private int totaldisponibledejour;

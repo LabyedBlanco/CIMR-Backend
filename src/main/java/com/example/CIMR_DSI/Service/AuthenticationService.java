@@ -59,7 +59,7 @@ public class AuthenticationService {
 
         String encodedPassword = passwordEncoder.encode(user.getPassword());
         user.setPassword(encodedPassword);
-
+        user.setRole("user");
         String randomCode = RandomString.make(64);
         user.setVerificationCode(randomCode);
         user.setEnabled(false);
@@ -113,7 +113,7 @@ public class AuthenticationService {
                 + //
                 "    <div style=\"max-width: 600px; margin: 0 auto; padding: 20px; background-color: #ffffff; text-align: center;\">\r\n"
                 + //
-                "        <img src=\"https://scontent.fcmn1-2.fna.fbcdn.net/v/t39.30808-6/450557014_894734739363815_8944287630749459341_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=6ee11a&_nc_eui2=AeEt4rdJ2UlV6Ibpm5sYi6M9EcQXBExXuPMRxBcETFe480kvu23oIh8qbYE-d-SwgVK0ytCmIriE3YVTv76jbTJK&_nc_ohc=giRqn_cBCysQ7kNvgFx_jez&_nc_ht=scontent.fcmn1-2.fna&_nc_gid=ACVl1K3Eoj6sF8b_86Mn3ko&oh=00_AYD5iQxzFNCfoagcIozAD6yrt8WAiF2pQ-Mr1TgdAPLeRg&oe=66F3664E\"\r\n"
+                "        <img src=\"https://ci3.googleusercontent.com/meips/ADKq_Nb3d7dlSQd5IE4IfJqv8GFxT8xcFVON9gnsObzs6wyl6zwbsRoFtkNZjX2IR67bO4TghqB7N-nlsuyhTK1PQU2XMWd-=s0-d-e1-ft#https://www.cimr.ma/file/2015/01/logo-cimr.png\"\r\n"
                 + //
                 "            alt=\"Logo de l'entreprise\" style=\"max-width: 200px; margin-bottom: 20px;\">\r\n" + //
                 "        <h1>Bienvenue chez CIMR </h1>\r\n" + //
@@ -181,7 +181,7 @@ public class AuthenticationService {
                 "<body style=\"font-family: Arial, sans-serif; line-height: 1.6; color: #333;\">\r\n" + //
                 "    <div style=\"max-width: 600px; margin: 0 auto; padding: 20px;\">\r\n" + //
                 " <img src=\"https://www.cimr.ma/file/2015/01/logo-cimr.png\" alt=\"Logo de l'entreprise\"\r\n" + //
-                                        "            style=\"max-width: 200px; margin-bottom: 20px;\">" + //
+                "            style=\"max-width: 200px; margin-bottom: 20px;\">" + //
                 "        <h2 style=\"color: #78B51F;\">Nouveau projet assigné</h2>\r\n" + //
                 "        <p>Cher(e) [[name]] [[prenom]],</p>\r\n" + //
                 "        <p>Nous avons le plaisir de vous informer qu'un nouveau projet vous a été assigné. Voici les détails :</p>\r\n"

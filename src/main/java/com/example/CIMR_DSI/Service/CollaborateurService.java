@@ -37,18 +37,59 @@ public class CollaborateurService {
   public Collaborateur addCollaborateur(Collaborateur collaborateur) {
 
     Date date = new Date(0);
-
     collaborateurRepository.save(collaborateur);
 
-    Trimestre trimestreActual = trimestreService.FindCurrentTrimestre();
+    if ("admin".equals(collaborateur.getRole())) {
 
-    if (trimestreActual != null) {
+      Trimestre trimestreActual = trimestreService.FindCurrentTrimestre();
+
+      if (trimestreActual != null) {
+        int congee = collaborateur.getDroitdecongee();
+        CollaborateurTrimestre collaborateurTrimestre = new CollaborateurTrimestre();
+
+        collaborateurTrimestre.setTotalNetcongee(trimestreActual.getTotaldisponibledejour() - congee);
+
+        int x = (int) (collaborateurTrimestre.getTotalNetcongee() * (trimestreActual.getCoefficientmaintence() / 100));
+        collaborateurTrimestre.setMaintenence(x);
+
+        collaborateurTrimestre.setChargedisponible(collaborateurTrimestre.getTotalNetcongee() - x);
+        collaborateurTrimestre.setAnalyse((int) (collaborateurTrimestre.getTotalNetcongee() * 0.2));
+        collaborateurTrimestre.setControleQualite((int) (collaborateurTrimestre.getTotalNetcongee() * 0));
+        collaborateurTrimestre.setIntegrationcoordination((int) (collaborateurTrimestre.getTotalNetcongee() * 0.3));
+        collaborateurTrimestre
+            .setChargecompetence(collaborateurTrimestre.getTotalNetcongee() - collaborateurTrimestre.getSum());
+
+        collaborateurTrimestreService.assignCollaborateurToTrimestre(collaborateur.getId(), trimestreActual.getId(),
+            collaborateurTrimestre);
+      }
+    }
+
+    return collaborateur;
+  }
+
+  public Collaborateur updateCollaborateur(Collaborateur collaborateur) {
+
+    Collaborateur collaborateurupdate = findCollaborateurbyid(collaborateur.getId());
+
+    collaborateurupdate.setCompetence(collaborateur.getCompetence());
+    collaborateurupdate.setEmail(collaborateur.getEmail());
+    collaborateurupdate.setNom(collaborateur.getNom());
+    collaborateurupdate.setPrenom(collaborateur.getPrenom());
+    collaborateurupdate.setRole(collaborateur.getRole());
+    collaborateurupdate.setAbout(collaborateur.getAbout());
+
+    if (collaborateurupdate.getDroitdecongee() != collaborateur.getDroitdecongee()) {
+      collaborateurupdate.setDroitdecongee(collaborateur.getDroitdecongee());
+      Trimestre trimestreactuel = trimestreService.FindCurrentTrimestre();
+      collaborateurTrimestreService.removeCollaborateurFromTrimestre(collaborateurupdate.getId(),
+          trimestreactuel.getId());
+
       int congee = collaborateur.getDroitdecongee();
       CollaborateurTrimestre collaborateurTrimestre = new CollaborateurTrimestre();
 
-      collaborateurTrimestre.setTotalNetcongee(trimestreActual.getTotaldisponibledejour() - congee);
+      collaborateurTrimestre.setTotalNetcongee(trimestreactuel.getTotaldisponibledejour() - congee);
 
-      int x = (int) (collaborateurTrimestre.getTotalNetcongee() * (trimestreActual.getCoefficientmaintence() / 100));
+      int x = (int) (collaborateurTrimestre.getTotalNetcongee() * (trimestreactuel.getCoefficientmaintence() / 100));
       collaborateurTrimestre.setMaintenence(x);
 
       collaborateurTrimestre.setChargedisponible(collaborateurTrimestre.getTotalNetcongee() - x);
@@ -58,15 +99,15 @@ public class CollaborateurService {
       collaborateurTrimestre
           .setChargecompetence(collaborateurTrimestre.getTotalNetcongee() - collaborateurTrimestre.getSum());
 
-      collaborateurTrimestreService.assignCollaborateurToTrimestre(collaborateur.getId(), trimestreActual.getId(),
+      collaborateurTrimestreService.assignCollaborateurToTrimestre(collaborateur.getId(), trimestreactuel.getId(),
           collaborateurTrimestre);
+
+      // collaborateurTrimestreService.assignCollaborateurToTrimestre(null, null,
+      // null);
+
     }
 
-    return collaborateur;
-  }
-
-  public Collaborateur updateCollaborateur(Collaborateur collaborateur) {
-    return collaborateurRepository.save(collaborateur);
+    return collaborateurRepository.save(collaborateurupdate);
   }
 
   public List<Collaborateur> findAllCollaborateur() {
@@ -75,6 +116,9 @@ public class CollaborateurService {
 
   @Transactional
   public void deleteCollaborateurbyid(Long id) {
+    Collaborateur collaborateur = collaborateurRepository.findByIdNotOptional(id);
+    collaborateur.setCollabprojet(null);
+    collaborateur.setTrimestre(null);
     collaborateurRepository.deleteCollaborateurById(id);
   }
 

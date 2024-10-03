@@ -10,11 +10,20 @@ public class Departement implements Serializable {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(nullable = false, updatable = false)
-  private Long id ;
+  private Long id;
 
   private String Titre;
+  private String description;
 
-  private Long NbrCollaborateurs ;
+  public String getDesc() {
+    return description;
+  }
+
+  public void setDesc(String desc) {
+    this.description = desc;
+  }
+
+  private Long NbrCollaborateurs;
 
   public Long getId() {
     return id;
@@ -46,7 +55,9 @@ public class Departement implements Serializable {
     NbrCollaborateurs = nbrCollaborateurs;
   }
 
-  public Departement(){}
+  public Departement() {
+  }
+
   @OneToMany(mappedBy = "departement", cascade = CascadeType.ALL)
-  private List<Projet> projet ;
+  private List<Projet> projet;
 }

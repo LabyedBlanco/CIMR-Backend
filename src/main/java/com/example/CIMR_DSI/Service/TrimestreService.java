@@ -11,6 +11,9 @@ import com.example.CIMR_DSI.Repo.CollaborateurTrimestreRepository;
 import com.example.CIMR_DSI.Repo.PlanificationRepository;
 import com.example.CIMR_DSI.Repo.TrimestreRepository;
 import com.example.CIMR_DSI.exception.UserNotFoundException;
+
+import jakarta.transaction.Transactional;
+
 import org.springframework.stereotype.Service;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
@@ -95,29 +98,30 @@ public class TrimestreService {
 
       for (Collaborateur collaborateur : collaborateurs) {
 
-        int congee = collaborateur.getDroitdecongee();
-        CollaborateurTrimestre collaborateurTrimestre = new CollaborateurTrimestre();
+        if ("user".equals(collaborateur.getRole())) {
 
-        collaborateurTrimestre.setTotalNetcongee(trimestre.getTotaldisponibledejour() - congee);
+          int congee = collaborateur.getDroitdecongee();
+          CollaborateurTrimestre collaborateurTrimestre = new CollaborateurTrimestre();
 
-        int x = (int) (collaborateurTrimestre.getTotalNetcongee() * (trimestre.getCoefficientmaintence() / 100));
-        collaborateurTrimestre.setMaintenence(x);
+          collaborateurTrimestre.setTotalNetcongee(trimestre.getTotaldisponibledejour() - congee);
 
-        collaborateurTrimestre.setChargedisponible(collaborateurTrimestre.getTotalNetcongee() - x);
-        collaborateurTrimestre.setAnalyse((int) (collaborateurTrimestre.getTotalNetcongee() * 0.2));
-        collaborateurTrimestre.setControleQualite((int) (collaborateurTrimestre.getTotalNetcongee() * 0));
-        collaborateurTrimestre.setIntegrationcoordination((int) (collaborateurTrimestre.getTotalNetcongee() * 0.3));
-        collaborateurTrimestre
-            .setChargecompetence(collaborateurTrimestre.getTotalNetcongee() - collaborateurTrimestre.getSum());
+          int x = (int) (collaborateurTrimestre.getTotalNetcongee() * (trimestre.getCoefficientmaintence() / 100));
+          collaborateurTrimestre.setMaintenence(x);
 
-        collaborateurTrimestreService.assignCollaborateurToTrimestre(collaborateur.getId(), trimestre.getId(),
-            collaborateurTrimestre);
+          collaborateurTrimestre.setChargedisponible(collaborateurTrimestre.getTotalNetcongee() - x);
+          collaborateurTrimestre.setAnalyse((int) (collaborateurTrimestre.getTotalNetcongee() * 0.2));
+          collaborateurTrimestre.setControleQualite((int) (collaborateurTrimestre.getTotalNetcongee() * 0));
+          collaborateurTrimestre.setIntegrationcoordination((int) (collaborateurTrimestre.getTotalNetcongee() * 0.3));
+          collaborateurTrimestre
+              .setChargecompetence(collaborateurTrimestre.getTotalNetcongee() - collaborateurTrimestre.getSum());
 
+          collaborateurTrimestreService.assignCollaborateurToTrimestre(collaborateur.getId(), trimestre.getId(),
+              collaborateurTrimestre);
+        }
       }
 
-      return trimestre;
     }
-    return null;
+    return trimestre;
   }
 
   public Trimestre FindCurrentTrimestre() {
@@ -138,6 +142,7 @@ public class TrimestreService {
 
   }
 
+  @Transactional
   public void deleteTrimestreById(Long id) {
     trimestreRepository.deleteById(id);
   }

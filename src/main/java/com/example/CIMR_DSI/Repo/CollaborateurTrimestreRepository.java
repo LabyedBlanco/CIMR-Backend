@@ -30,4 +30,7 @@ public interface CollaborateurTrimestreRepository
                         "WHERE t.id = :trimestreId")
         CollaborateurTrimestre getSumOfFields(@Param("trimestreId") Long trimestreId);
 
+        @Query("SELECT ct FROM CollaborateurTrimestre ct WHERE ct.collaborateur.id = :colabId AND ct.trimestre.id = :trimestreId")
+        CollaborateurTrimestre getCollabTrimestreCap(@Param("colabId") Long collaborateurId,
+                        @Param("trimestreId") Long trimestreId);
 }

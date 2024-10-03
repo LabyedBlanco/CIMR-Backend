@@ -12,7 +12,7 @@ public class CollaborateurTrimestre {
   @EmbeddedId
   private CollaborateurTrimestreId id;
 
-  @ManyToOne(cascade = CascadeType.REMOVE)
+  @ManyToOne
   @MapsId("collaborateurId")
   @JoinColumn(name = "collaborateur_id")
   @JsonIgnoreProperties("trimestre")

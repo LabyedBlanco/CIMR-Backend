@@ -34,4 +34,7 @@ public interface CollaborateurRepository
   @Query("SELECT u FROM Collaborateur u WHERE u.id = :id")
   Collaborateur findByIdNotOptional(@Param("id") Long id);
 
+  @Query("SELECT u FROM Collaborateur u WHERE u.email = :email")
+  Collaborateur findByemailNotOptional(@Param("email") String email);
+
 }

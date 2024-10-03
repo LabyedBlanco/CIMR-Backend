@@ -4,6 +4,8 @@ import com.example.CIMR_DSI.Model.Action;
 import com.example.CIMR_DSI.Model.Projet;
 import com.example.CIMR_DSI.Repo.ProjetRepository;
 import com.example.CIMR_DSI.exception.UserNotFoundException;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,6 +21,9 @@ public class ProjetService {
 
   private ProjetRepository projetRepository;
 
+  @Autowired
+  private CollaborateurProjetService collaborateurProjetService;
+
   public ProjetService(ProjetRepository projetRepository) {
     this.projetRepository = projetRepository;
   }
@@ -28,6 +33,7 @@ public class ProjetService {
     projet.setCreele(LocalDate.now());
     projet.setChargeestimee(projet.getAnalyse() + projet.getInfra() + projet.getControlequalite()
         + projet.getChargeAS400() + projet.getIntegrationcoordination() + projet.getChargeNTIC());
+
     return projetRepository.save(projet);
   }
 
@@ -37,14 +43,62 @@ public class ProjetService {
 
   public Projet updateProjet(Projet projet) {
     Projet ProjetToSave = projetRepository.findByIdNotOptional(projet.getId());
-    projet.setChargeestimee(projet.getAnalyse() + projet.getInfra() + projet.getControlequalite()
-        + projet.getChargeAS400() + projet.getIntegrationcoordination() + projet.getChargeNTIC());
+
+    if (projet.getAnalyse() != null) {
+      projet.setChargeestimee(projet.getAnalyse() + projet.getInfra() + projet.getControlequalite()
+          + projet.getChargeAS400() + projet.getIntegrationcoordination() + projet.getChargeNTIC());
+      ProjetToSave.setChargeestimee(projet.getChargeestimee());
+    }
 
     if (ProjetToSave == null) {
       return null;
     } else {
 
-      return projetRepository.save(projet);
+      if (projet.getTitre() != null) {
+        ProjetToSave.setTitre(projet.getTitre());
+      }
+
+      if (projet.getDepartement() != null) {
+        ProjetToSave.setDepartement(projet.getDepartement());
+      }
+
+      if (projet.getChargeAS400() != 0) {
+        ProjetToSave.setChargeAS400(projet.getChargeAS400());
+      }
+
+      if (projet.getChargeNTIC() != 0) {
+        ProjetToSave.setChargeAS400(projet.getChargeNTIC());
+      }
+
+      if (projet.getChargeWINDEV() != 0) {
+        ProjetToSave.setChargeWINDEV(projet.getChargeWINDEV());
+      }
+
+      if (projet.getControlequalite() != null) {
+        ProjetToSave.setControlequalite(projet.getControlequalite());
+      }
+
+      if (projet.getDatedebut() != null) {
+        ProjetToSave.setDatedebut(projet.getDatedebut());
+      }
+
+      if (projet.getDatelimie() != null) {
+        ProjetToSave.setDatelimie(projet.getDatelimie());
+      }
+
+      if (projet.getTitre() != null) {
+        ProjetToSave.setTitre(projet.getTitre());
+      }
+
+      if (projet.getInfra() != null) {
+        ProjetToSave.setInfra(projet.getInfra());
+      }
+
+      if (projet.getRemarque() != null) {
+        ProjetToSave.setRemarque(projet.getRemarque());
+      }
+
+      return projetRepository.save(ProjetToSave);
     }
   }
 
@@ -75,6 +129,7 @@ public class ProjetService {
         .orElseThrow(() -> new UserNotFoundException("le Projet avec cette id " + id + "est introuvable : "));
   }
 
+  @Transactional
   public void deleteProjetbyid(Long id) {
     projetRepository.deleteById(id);
   }

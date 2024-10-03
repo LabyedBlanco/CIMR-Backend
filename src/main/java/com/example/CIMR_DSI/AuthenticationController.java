@@ -56,6 +56,7 @@ public class AuthenticationController {
     @PostMapping("/signup")
     public String processRegister(@RequestBody Collaborateur user, HttpServletRequest request)
             throws UnsupportedEncodingException, MessagingException {
+        user.setRole("user");
         authenticationService.register(user, getSiteURL(request));
         return "register_success";
     }

@@ -190,11 +190,15 @@ public class Collaborateur implements Serializable, UserDetails {
   }
 
   public void setCollabprojet(Set<CollaborateurProjet> collaborateurprojets) {
-    collabprojet = collaborateurprojets;
+    this.collabprojet.clear();
+    if (collaborateurprojets != null) {
+      this.collabprojet.addAll(collaborateurprojets);
+    }
   }
 
-  @OneToMany(fetch = FetchType.LAZY, mappedBy = "collaborateur", cascade = CascadeType.REMOVE)
+  @OneToMany(fetch = FetchType.LAZY, mappedBy = "collaborateur", cascade = CascadeType.ALL, orphanRemoval = true)
   @JsonIgnoreProperties("collaborateur")
+  @JsonIgnore
   private Set<CollaborateurTrimestre> trimestre;
 
   public Long getId() {
@@ -230,6 +234,10 @@ public class Collaborateur implements Serializable, UserDetails {
   }
 
   public void setTrimestre(Set<CollaborateurTrimestre> trimestre) {
-    this.trimestre = trimestre;
+
+    this.trimestre.clear();
+    if (trimestre != null) {
+      this.trimestre.addAll(trimestre);
+    }
   }
 }

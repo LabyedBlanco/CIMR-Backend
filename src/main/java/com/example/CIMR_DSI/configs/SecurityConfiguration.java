@@ -35,7 +35,8 @@ public class SecurityConfiguration {
                 .cors() // Add this line to enable CORS support
                 .and()
                 .authorizeHttpRequests()
-                .requestMatchers("/auth/**", "/Competence/**")
+                .requestMatchers("/auth/**", "/Competence/**", "/upload/**",
+                        "/Collaborateurs/fileUpload/**")
                 .permitAll()
                 .anyRequest()
                 .authenticated()

@@ -7,6 +7,7 @@ import com.example.CIMR_DSI.exception.UserNotFoundException;
 
 import java.util.Set;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -40,6 +41,7 @@ public class PlanificationService {
                 () -> new UserNotFoundException("Planification avec cette id" + id + "est introuvable : "));
     }
 
+     @Transactional
     public void deletePlanificationbyid(Long id) {
         planificationRepository.deletePlanificationById(id);
     }

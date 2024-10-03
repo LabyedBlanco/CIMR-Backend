@@ -52,9 +52,13 @@ public class CollaborateurTrimestreService {
     }
 
     @Transactional
-    public void removeCollaborateurFromProjet(Long collaborateurId, Long TrimestreId) {
+    public void removeCollaborateurFromTrimestre(Long collaborateurId, Long TrimestreId) {
         CollaborateurTrimestreId id = new CollaborateurTrimestreId(collaborateurId, TrimestreId);
         collaborateurTrimestreRepository.deleteById(id);
+    }
+
+    public CollaborateurTrimestre getCollabTrmiestre(Long idCollaborateur, Long idTrimestre) {
+        return collaborateurTrimestreRepository.getCollabTrimestreCap(idCollaborateur, idTrimestre);
     }
 
 }

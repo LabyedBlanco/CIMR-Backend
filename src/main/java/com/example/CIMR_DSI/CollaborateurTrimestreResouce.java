@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.CIMR_DSI.Model.Collaborateur;
 import com.example.CIMR_DSI.Model.CollaborateurTrimestre;
 import com.example.CIMR_DSI.Service.CollaborateurTrimestreService;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @RestController
 @RequestMapping("/CollaborateurTrimestre")
@@ -32,6 +33,13 @@ public class CollaborateurTrimestreResouce {
     @GetMapping("/Sum/{id}")
     public ResponseEntity<CollaborateurTrimestre> SumAll(@PathVariable("id") Long id) {
         CollaborateurTrimestre sum = collaborateurTrimestreService.getSUMALL(id);
+        return new ResponseEntity<>(sum, HttpStatus.OK);
+    }
+
+    @GetMapping("/Collaborateur/{Collabrateurid}/Trimestre/{TrimestreId}")
+    public ResponseEntity<CollaborateurTrimestre> CollabTrimestre(@PathVariable("Collabrateurid") Long idCollaborateur,
+            @PathVariable("TrimestreId") Long TrimestreId) {
+        CollaborateurTrimestre sum = collaborateurTrimestreService.getCollabTrmiestre(idCollaborateur, TrimestreId);
         return new ResponseEntity<>(sum, HttpStatus.OK);
     }
 

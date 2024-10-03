@@ -33,7 +33,7 @@ public class Projet implements Serializable {
   }
 
   @JsonManagedReference
-  @OneToMany(mappedBy = "projet", cascade = CascadeType.ALL)
+  @OneToMany(mappedBy = "projet", cascade = CascadeType.ALL, orphanRemoval = true)
   @JsonIgnore
   private Set<CollaborateurProjet> collaborateur;
 
@@ -41,11 +41,12 @@ public class Projet implements Serializable {
   @JoinColumn(name = "departement_id")
   private Departement departement;
 
-  @OneToMany(mappedBy = "projet", cascade = CascadeType.ALL)
+  @OneToMany(mappedBy = "projet", cascade = CascadeType.ALL, orphanRemoval = true)
   @JsonIgnoreProperties("projet")
   private Set<Action> action;
 
   private String titre;
+
   private long chargeNTIC;
   private long chargeWINDEV;
   private long chargeAS400;
@@ -59,8 +60,20 @@ public class Projet implements Serializable {
   private Long Analyse;
   private String datelimie;
   private String datedebut;
+
+  @Lob
+  @Column(columnDefinition = "TEXT")
   private String remarque;
   private LocalDate creele;
+  private boolean retenir = false;
+
+  public boolean isRetenir() {
+    return retenir;
+  }
+
+  public void setRetenir(boolean retenir) {
+    this.retenir = retenir;
+  }
 
   public LocalDate getCreele() {
     return creele;

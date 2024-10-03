@@ -10,13 +10,12 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-
 @RestController
 @RequestMapping("/Departement")
 public class DepartementResouce {
 
-  private DepartementRepository departementRepository ;
-  private  DepartementService departementService ;
+  private DepartementRepository departementRepository;
+  private DepartementService departementService;
 
   public DepartementResouce(DepartementRepository departementRepository, DepartementService departementService) {
     this.departementRepository = departementRepository;
@@ -24,16 +23,21 @@ public class DepartementResouce {
   }
 
   @GetMapping("/all")
-  public ResponseEntity<List<Departement>> getAllDepartement(){
+  public ResponseEntity<List<Departement>> getAllDepartement() {
     List<Departement> departement = departementService.findAllDepartement();
-    return new ResponseEntity<>(departement,HttpStatus.OK);
+    return new ResponseEntity<>(departement, HttpStatus.OK);
+  }
+
+  @GetMapping("/all/{id}")
+  public ResponseEntity<List<Object[]>> getAllDepartement(@PathVariable("id") Long id) {
+    List<Object[]> departement = departementService.findAllDepartementByID(id);
+    return new ResponseEntity<>(departement, HttpStatus.OK);
   }
 
   @PostMapping("/add")
-  public ResponseEntity<Departement> addDepartement(@RequestBody Departement departement){
+  public ResponseEntity<Departement> addDepartement(@RequestBody Departement departement) {
     Departement departement1 = departementService.addDepartement(departement);
-    return new ResponseEntity<>(departement1,HttpStatus.CREATED);
+    return new ResponseEntity<>(departement1, HttpStatus.CREATED);
   }
-
 
 }

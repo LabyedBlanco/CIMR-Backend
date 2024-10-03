@@ -69,7 +69,7 @@ public class Action implements Serializable {
 
   private Competence competence;
 
-  @Column(name = "contenue", length = 1000)
+  @Column(name = "contenue", length = 5000)
   private String Contenue;
 
   public Action(Long id, Projet projet, String nomaction, String etat, Long charge, LocalDate dateaction,
