@@ -59,7 +59,13 @@ public class AuthenticationService {
 
         String encodedPassword = passwordEncoder.encode(user.getPassword());
         user.setPassword(encodedPassword);
-        user.setRole("user");
+
+        if (collaborateurRepository.count() == 0) {
+            user.setRole("admin");
+        } else {
+            user.setRole("user");
+        }
+
         String randomCode = RandomString.make(64);
         user.setVerificationCode(randomCode);
         user.setEnabled(false);
